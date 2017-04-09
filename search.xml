@@ -6,7 +6,8 @@
     <entry>
       <title><![CDATA[VMware12安装mac 遇到的几个坑]]></title>
       <url>http://lijinya.xyz/2017/04/09/VMware12%E5%AE%89%E8%A3%85mac-%E9%81%87%E5%88%B0%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91/</url>
-      <content type="html"><![CDATA[<blockquote>
+      <content type="html"><![CDATA[<p><img src="http://omnop4oru.bkt.clouddn.com/zatanMac03.jpg" alt="mac"><br><a id="more"></a></p>
+<blockquote>
 <h3 id="安装vmwarea解锁mac-os-选项补丁"><a href="#安装vmwarea解锁mac-os-选项补丁" class="headerlink" title="安装vmwarea解锁mac os 选项补丁"></a>安装vmwarea解锁mac os 选项补丁</h3><p>　　在使用vm安装mac os之前必须先运行<code>Unlocker208</code>否则在vm里无法选&gt;择系统类型为mac os 导致最终安装失败。双击运行如果失败的话，在cmd里&gt;运行win-install.cmd<br>   　　 1. 更改cmd的编码 cmd管理员运行 输入<code>chcp 936</code><br>   　　 2. cd 进入win-install.cmd 文件夹<br>   　　 3. 直接输入win-install</p>
 </blockquote>
 <p>　</p>

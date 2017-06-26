@@ -4,6 +4,273 @@
   
     
     <entry>
+      <title><![CDATA[react基础]]></title>
+      <url>http://lijinya.xyz/2017/06/23/%E5%A4%A7%E7%9A%84/</url>
+      <content type="html"><![CDATA[<h1 id="jsx语法"><a href="#jsx语法" class="headerlink" title="jsx语法"></a>jsx语法</h1><blockquote>
+<p>遇到{}按照js语法解析遇到&lt;&gt;按照xml语法解析</p>
+</blockquote>
+<h1 id="react组件"><a href="#react组件" class="headerlink" title="react组件"></a>react组件</h1><blockquote>
+<ol>
+<li>组件的首字母必须大写</li>
+<li>return返回的view必须是HTMLview</li>
+<li>在渲染的时候只能存在一个根标签</li>
+<li>在组件中标签必须闭合，否则报错</li>
+<li>组件与组件的嵌套</li>
+<li>style样式的添加class需要改成className<br>+<a id="more"></a></li>
+</ol>
+</blockquote>
+<h1 id="props"><a href="#props" class="headerlink" title="props"></a>props</h1><pre><code>//声明组件hello
+ var Hello = React.createClass({
+   render:function () {
+   //通过props获得组件内属性title的值 进行判断
+       var value = this.props.title;
+       if (value == &apos;Hello&apos;){
+           value = &apos;Hello&apos;;
+       }else {
+           value = &apos;我不是Hello&apos;
+       }
+       返回value值
+       return &lt;p&gt;{value}&lt;/p&gt;
+   }
+});
+//声明组件Jean
+var Jean = React.createClass({
+//对传入的数据做限制
+   propTypes:{
+   //限制为字符串
+       name:React.PropTypes.string,
+       //限制为number 且不为空
+       age:React.PropTypes.number.isRequired
+   },
+   //对参数做初始化
+   getDefaultProps:function () {
+       return {
+           name:&apos;jean&apos;
+       }
+   },
+   //组件的视图
+   render:function () {
+       return (
+               &lt;div&gt;
+                   &lt;p&gt;{this.props.name}&lt;/p&gt;
+                   &lt;p&gt;{this.props.age}&lt;/p&gt;
+               &lt;/div&gt;
+       )
+   }
+});
+ReactDOM.render(
+    &lt;div&gt;
+        &lt;Jean age={20} /&gt;
+        &lt;Hello title=&quot;Hello1&quot;/&gt;
+    &lt;/div&gt;,
+    document.getElementById(&apos;root&apos;)
+)
+</code></pre><h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><pre><code>var MyEvent = React.createClass({
+//声明事件
+   handerClick:function () {
+       alert(&apos;HAHA&apos;);
+   },
+   //通过refs获取指定input内的值
+   handerGetContent:function () {
+      console.log(this.refs.inputref.value) ;
+   },
+   render:function () {
+       return (
+           &lt;div&gt;
+           //给input添加ref属性 以便获取input内的值
+               &lt;input type=&quot;text&quot; ref=&quot;inputref&quot;/&gt;
+               //绑定事件没有onclick后面不能添加引号
+               &lt;button onClick={this.handerGetContent}&gt;获取输入框的内容&lt;/button&gt;
+               &lt;button onClick={this.handerClick}&gt;按钮&lt;/button&gt;
+           &lt;/div&gt;
+       )
+   }
+});
+ReactDOM.render(
+      &lt;MyEvent /&gt;  ,
+    document.getElementById(&apos;root&apos;)
+)
+</code></pre><h1 id="状态state"><a href="#状态state" class="headerlink" title="状态state"></a>状态<em>state</em></h1><pre><code>  var MyState = React.createClass({
+  //初始化状态值
+    getInitialState:function(){
+        return{
+            content:true
+        }
+    },
+    //通过事件修改状态值
+    handlerClick:function(){
+        this.setState({
+            content: !this.state.content
+        })
+    },
+    render:function(){
+    //声明变量flag等于状态值
+        var flag = this.state.content;
+        return(
+                &lt;div&gt;
+                    &lt;p&gt;
+                        {
+                        //根据状态值修改视图
+                            flag ? &quot;我是孙悟空&quot; : &quot;我是通臂猿猴&quot;
+                        }
+                    &lt;/p&gt;
+                    //元素绑定点击事件
+                    &lt;button onClick={this.handlerClick}&gt;出来吧，皮卡丘&lt;/button&gt;
+                &lt;/div&gt;
+        )
+    }
+});
+ReactDOM.render(
+        &lt;MyState /&gt;,
+    document.getElementById(&quot;root&quot;)
+)
+</code></pre><h1 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h1><blockquote>
+<p><strong>三个阶段：</strong>  </p>
+<ol>
+<li>Mounting：组件的渲染阶段  </li>
+<li>Updating：组件的更新阶段  </li>
+<li>Unmounting：组件的卸载阶段   <blockquote>
+<p>  <strong>react分别为这三个状态提供了will和did两个函数</strong>  </p>
+<ol>
+<li>componentWillMount() 组件渲染前触发事件   </li>
+<li>componentDidMount() 组件渲染后触发事件   </li>
+<li>componentWillUpdate() 组件更新前触发事件    </li>
+<li>componentDidUpdate() 组件更新后触发事件    </li>
+<li>componentWillUnmount() 组件卸载前触发事件   </li>
+<li>提供两个额外的生命周期函数</li>
+<li>shouldComponentUpdate()</li>
+<li>componentWillReceiveProps()</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<pre><code>var MyComponent = React.createClass({
+    //初始化传入的参数
+    getDefaultPoprs:function(){
+      return{
+        title:&quot;嘿嘿&quot;
+      }
+    },
+    //初始化状态
+    getInitialState:function(){
+      return {
+        mystate:&quot;初始化state&quot;
+      }
+    },
+    componentWillMount:function(){
+      console.log(&quot;组件渲染前&quot;);
+    },
+    componentDidMount:function(){
+      console.log(&quot;组件渲染后&quot;);
+    },
+    componentWillUpdate:function(){
+      console.log(&quot;组件更新前&quot;);
+    },
+    componentDidUpdate:function(){
+      console.log(&quot;组件更新后&quot;);
+    },
+    componentWillReceiveProps:function(){
+      console.log(&quot;属性发生改变&quot;);
+    },
+    shouldComponentUpdate:function(nextProps, nextState){
+       return{
+
+       }
+    },
+    componentWillUnmount:function(){
+      console.log(&quot;组件卸载前&quot;);
+    },
+
+    handlerClick:function(){
+      this.setState({
+        mystate:&quot;我是改变之后的状态&quot;
+      })
+    },
+
+    handlerSytle:function(){
+
+    },
+
+    render:function(){
+      //样式
+      var styleObj = {
+        color:&quot;green&quot;,
+        fontSize:&quot;30px&quot;,
+        border:&quot;1px solid red&quot;
+      }
+      //所有的view层的更新，都必须通过state 因为只有状态值改变了 react才会更新视图
+      return (
+        &lt;div&gt;
+          &lt;p style={{color:'red',fontSize:"25px"}}&gt;{this.state.mystate}&lt;/p&gt;
+          &lt;p style={styleObj}&gt;我是组件&lt;/p&gt;
+          &lt;p&gt;{this.props.title}&lt;/p&gt;
+          &lt;button onClick={this.handlerClick}&gt;改变状态&lt;/button&gt;
+          &lt;button onclick={this.handlerSytle}&gt;改变样式&lt;/button&gt;
+        &lt;/div&gt;
+      )
+    }
+  });
+  ReactDOM.render(
+    &lt;MyComponent title=&quot;哈哈&quot;/&gt;,
+    document.getElementById(&quot;root&quot;)
+  )
+</code></pre><h1 id="生命周期结合ajax"><a href="#生命周期结合ajax" class="headerlink" title="生命周期结合ajax"></a>生命周期结合ajax</h1><blockquote>
+<p><strong>使用ajax时注意修改this指向</strong>  </p>
+<h4 id="生命周期图"><a href="#生命周期图" class="headerlink" title="生命周期图"></a>生命周期图</h4><p><img src="http://omnop4oru.bkt.clouddn.com/react%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE.jpg" alt="image"></p>
+</blockquote>
+<pre><code>//声明组件
+var MyComponent = React.createClass({
+//初始化参数
+    getDefaultPoprs:function () {
+        return{
+            url:&apos;&apos;
+        }
+    },
+    //初始化状态
+    getInitialState:function () {
+        return {
+            imgurl:&apos;&apos;
+        }
+    },
+    //ajax应该在组件渲染完成后进行
+    componentDidMount:function () {
+        $.ajax({
+            type:&apos;get&apos;,
+            url:this.props.url,
+            success:function (data) {
+                console.log(1);
+                this.setState({
+                    imgurl:data.banner[0].img
+                })
+            }.bind(this)  //修改this指向
+        })
+    },
+    handlerClick:function () {
+        this.setState({
+            imgurl:&apos;http://iwen.wiki/sxtstu/blueberrypai/indexImg/banner2.jpg&apos;
+        })
+    },
+    render:function () {
+        return(
+            &lt;div&gt;
+                &lt;img src={this.state.imgurl} alt=&quot;&quot;/&gt;
+                &lt;button onClick={this.handlerClick}&gt;更换图片&lt;/button&gt;
+            &lt;/div&gt;
+        )
+    }
+});
+ReactDOM.render(
+//传入请求地址
+    &lt;MyComponent url=&quot;http://www.iwen.wiki/sxtstu/blueberrypai/getIndexBanner.php&quot;/&gt; ,
+    document.getElementById(&apos;root&apos;)
+)
+</code></pre>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[LESS编译]]></title>
       <url>http://lijinya.xyz/2017/06/23/LESS%E7%BC%96%E8%AF%91/</url>
       <content type="html"><![CDATA[<blockquote>
